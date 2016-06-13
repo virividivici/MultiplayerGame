@@ -128,11 +128,19 @@ from.addEventListener('submit', function(e){
   var input = document.getElementById('chat-input');
   var value = input.value;
   input.value = '';
-  onMessage(value);
   socket.emit('msg', value);
   e.preventDefault();
 
 });
+
+function addTurnListener(id) {
+  var button = document.getElementById(id);
+  button.addEventListener('click', function(){
+    socket.emit('turn', id);
+  });
+}
+
+['rock', 'paper', 'scissor'].forEach(addTurnListener);
 
 create();
 
